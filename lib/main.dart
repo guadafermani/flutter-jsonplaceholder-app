@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_placeholder_app/domain/repositories/user_repositoy.dart';
 import 'domain/providers/auth_provider.dart';
+import 'domain/providers/post_provider.dart';
 import 'domain/services/auth_service.dart';
+import 'domain/repositories/post_repository.dart';
 import 'presentation/login/login_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -18,8 +21,12 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<AuthService>(create: (_) => AuthService()),
+        Provider<PostRepository>(create: (_) => PostRepository()),
         ChangeNotifierProvider<AuthProvider>(
           create: (context) => AuthProvider(context.read<AuthService>()),
+        ),
+        ChangeNotifierProvider<PostProvider>(
+          create: (_) => PostProvider(PostRepository(), UserRepository()),
         ),
       ],
       child: MaterialApp(
