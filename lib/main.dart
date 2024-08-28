@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'domain/service/auth_service.dart';
+import 'domain/providers/auth_provider.dart';
+import 'domain/services/auth_service.dart';
 import 'presentation/login/login_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<AuthService>(create: (_) => AuthService()),
+        ChangeNotifierProvider<AuthProvider>(
+          create: (context) => AuthProvider(context.read<AuthService>()),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

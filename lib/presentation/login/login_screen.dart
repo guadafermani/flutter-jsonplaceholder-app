@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_placeholder_app/domain/service/auth_service.dart';
+import '../../domain/providers/auth_provider.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -10,7 +10,6 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  final authService = Provider.of<AuthService>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
@@ -31,11 +30,13 @@ class LoginScreen extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                bool isAuthenticated = authService.authenticate(
+                final authProvider =
+                    Provider.of<AuthProvider>(context, listen: false);
+                authProvider.login(
                   _emailController.text,
                   _passwordController.text,
                 );
-                if (isAuthenticated) {
+                if (authProvider.isAuthenticated) {
                   // TODO: Navigate to posts screen
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
