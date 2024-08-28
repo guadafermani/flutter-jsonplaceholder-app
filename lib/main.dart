@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_placeholder_app/domain/usecases/fetch_post_usecase.dart';
 import 'package:flutter_placeholder_app/domain/usecases/fetch_user_usecase.dart';
-import 'data/post_repository_impl.dart';
-import 'data/user_repository_impl.dart';
+import 'data/repositories/post_repository_impl.dart';
+import 'data/repositories/user_repository_impl.dart';
 import 'domain/repositories/user_repositoy.dart';
 import 'presentation/providers/auth_provider.dart';
 import 'presentation/providers/post_provider.dart';
