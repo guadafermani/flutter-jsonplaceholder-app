@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_placeholder_app/domain/models/post.dart';
-import 'package:flutter_placeholder_app/domain/repositories/post_repository.dart';
-import '../repositories/user_repositoy.dart';
+import 'package:flutter_placeholder_app/domain/usecases/fetch_post_usecase.dart';
+import 'package:flutter_placeholder_app/domain/usecases/fetch_user_usecase.dart';
 
 class PostProvider with ChangeNotifier {
-  final PostRepository _postRepository;
-  final UserRepository _userRepository;
+  final FetchPostsUseCase _fetchPostsUseCase;
+  final FetchUsersUseCase _fetchUsersUseCase;
 
   List<Post> _posts = [];
   final List<Post> _filteredPosts = [];
@@ -13,7 +13,7 @@ class PostProvider with ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  PostProvider(this._postRepository, this._userRepository);
+  PostProvider(this._fetchPostsUseCase, this._fetchUsersUseCase);
 
   List<Post> get posts => _filteredPosts.isNotEmpty ? _filteredPosts : _posts;
 
@@ -22,8 +22,8 @@ class PostProvider with ChangeNotifier {
     Future.microtask(() => notifyListeners());
 
     try {
-      final posts = await _postRepository.fetchPosts();
-      final users = await _userRepository.fetchUsers();
+      final posts = await _fetchPostsUseCase.execute();
+      final users = await _fetchUsersUseCase.execute();
 
       // Vinculate post list with user
       _posts = posts.map((post) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_placeholder_app/domain/providers/post_provider.dart';
+import 'package:flutter_placeholder_app/presentation/providers/post_provider.dart';
 import 'package:flutter_placeholder_app/presentation/posts/post_list_item.dart';
 import 'package:provider/provider.dart';
 

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_placeholder_app/domain/services/auth_service.dart';
+import 'package:flutter_placeholder_app/domain/usecases/login_auth_usecase.dart';
 
 class AuthProvider with ChangeNotifier {
-  final AuthService _authService;
+  final LoginAuthUseCase _loginAuthUseCase;
   bool _isAuthenticated = false;
 
-  AuthProvider(this._authService);
+  AuthProvider(this._loginAuthUseCase);
 
   bool get isAuthenticated => _isAuthenticated;
 
   void login(String email, String password) {
-    _isAuthenticated = _authService.authenticate(email, password);
+    _isAuthenticated = _loginAuthUseCase.authenticate(email, password);
     notifyListeners();
   }
 

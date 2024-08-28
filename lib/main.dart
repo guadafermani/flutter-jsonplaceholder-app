@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_placeholder_app/domain/repositories/user_repositoy.dart';
-import 'domain/providers/auth_provider.dart';
-import 'domain/providers/post_provider.dart';
-import 'domain/services/auth_service.dart';
+import 'package:flutter_placeholder_app/domain/usecases/fetch_post_usecase.dart';
+import 'package:flutter_placeholder_app/domain/usecases/fetch_user_usecase.dart';
+import 'data/post_repository_impl.dart';
+import 'data/user_repository_impl.dart';
+import 'domain/repositories/user_repositoy.dart';
+import 'presentation/providers/auth_provider.dart';
+import 'presentation/providers/post_provider.dart';
+import 'domain/usecases/login_auth_usecase.dart';
 import 'domain/repositories/post_repository.dart';
 import 'presentation/login/login_screen.dart';
 import 'package:provider/provider.dart';
@@ -20,14 +24,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<AuthService>(create: (_) => AuthService()),
-        Provider<PostRepository>(create: (_) => PostRepository()),
+        Provider<PostRepository>(create: (_) => PostRepositoryImpl()),
+        Provider<UserRepository>(create: (_) => UserRepositoryImpl()),
+        Provider<LoginAuthUseCase>(create: (_) => LoginAuthUseCase()),
+        Provider<FetchUsersUseCase>(
+            create: (context) =>
+                FetchUsersUseCase(context.read<UserRepository>())),
+        Provider<FetchPostsUseCase>(
+            create: (context) =>
+                FetchPostsUseCase(context.read<PostRepository>())),
         ChangeNotifierProvider<AuthProvider>(
-          create: (context) => AuthProvider(context.read<AuthService>()),
+          create: (context) => AuthProvider(context.read<LoginAuthUseCase>()),
         ),
         ChangeNotifierProvider<PostProvider>(
-          create: (_) => PostProvider(PostRepository(), UserRepository()),
-        ),
+            create: (context) => PostProvider(context.read<FetchPostsUseCase>(),
+                context.read<FetchUsersUseCase>())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

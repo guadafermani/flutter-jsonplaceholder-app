@@ -1,4 +1,4 @@
-class AuthService {
+class LoginAuthUseCase {
   final String _validEmail = 'challenge@fudo';
   final String _validPassword = 'password';
 

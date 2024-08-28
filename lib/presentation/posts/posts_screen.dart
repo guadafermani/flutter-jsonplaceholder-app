@@ -2,19 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_placeholder_app/presentation/posts/post_list_item.dart';
 import 'package:flutter_placeholder_app/presentation/posts/post_search_delegate.dart';
 import 'package:provider/provider.dart';
-import '../../domain/providers/post_provider.dart';
+import '../providers/post_provider.dart';
 import 'package:flutter_placeholder_app/domain/models/post.dart';
 
-class PostsScreen extends StatelessWidget {
+class PostsScreen extends StatefulWidget {
   const PostsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-  final postProvider = Provider.of<PostProvider>(context);
+  _PostsScreenState createState() => _PostsScreenState();
+}
 
-  if (postProvider.posts.isEmpty && !postProvider.isLoading) {
-    postProvider.fetchPostsAndUsers();
+class _PostsScreenState extends State<PostsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    final postProvider = Provider.of<PostProvider>(context, listen: false);
+    if (postProvider.posts.isEmpty) {
+      postProvider.fetchPostsAndUsers();
+    }
   }
+  
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Posts'),
