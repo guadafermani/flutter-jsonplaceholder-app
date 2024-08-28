@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_placeholder_app/domain/providers/post_provider.dart';
+import 'package:flutter_placeholder_app/presentation/posts/post_list_item.dart';
 import 'package:flutter_placeholder_app/presentation/posts/posts_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -43,9 +44,7 @@ class PostSearchDelegate extends SearchDelegate {
       itemCount: filteredPosts.length,
       itemBuilder: (context, index) {
         final post = filteredPosts[index];
-        return PostList(
-          posts: [post],
-        );
+        return PostListItem(post: post);
       },
     );
   }

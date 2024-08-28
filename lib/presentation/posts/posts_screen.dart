@@ -5,23 +5,16 @@ import 'package:provider/provider.dart';
 import '../../domain/providers/post_provider.dart';
 import 'package:flutter_placeholder_app/domain/models/post.dart';
 
-class PostsScreen extends StatefulWidget {
+class PostsScreen extends StatelessWidget {
   const PostsScreen({super.key});
 
   @override
-  _PostsScreenState createState() => _PostsScreenState();
-}
-
-class _PostsScreenState extends State<PostsScreen> {
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(
-        () => Provider.of<PostProvider>(context, listen: false).fetchPostsAndUsers());
-  }
-
-  @override
   Widget build(BuildContext context) {
+  final postProvider = Provider.of<PostProvider>(context);
+
+  if (postProvider.posts.isEmpty && !postProvider.isLoading) {
+    postProvider.fetchPostsAndUsers();
+  }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Posts'),
