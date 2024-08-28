@@ -37,7 +37,7 @@ class LoginScreen extends StatelessWidget {
                   _passwordController.text,
                 );
                 if (authProvider.isAuthenticated) {
-                  // TODO: Navigate to posts screen
+                  Navigator.pushReplacementNamed(context, '/posts');
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Invalid credentials')),

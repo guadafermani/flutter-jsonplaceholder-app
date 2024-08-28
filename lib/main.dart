@@ -4,6 +4,8 @@ import 'domain/services/auth_service.dart';
 import 'presentation/login/login_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'presentation/posts/posts_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -41,6 +43,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => LoginScreen(),
+          '/posts': (context) => const PostsScreen(),
         },
       ),
     );
