@@ -17,7 +17,7 @@ class PostListItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Author: ${post.userName} - Post: ${post.id}',
+              'Author: ${post.userName} - Post #${post.id}',
               style: Theme.of(context)
                   .textTheme
                   .bodySmall

@@ -8,7 +8,7 @@ class PostProvider with ChangeNotifier {
   final UserRepository _userRepository;
 
   List<Post> _posts = [];
-  List<Post> _filteredPosts = [];
+  final List<Post> _filteredPosts = [];
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -19,7 +19,7 @@ class PostProvider with ChangeNotifier {
 
   Future<void> fetchPostsAndUsers() async {
     _isLoading = true;
-    notifyListeners();
+    Future.microtask(() => notifyListeners());
 
     try {
       final posts = await _postRepository.fetchPosts();
