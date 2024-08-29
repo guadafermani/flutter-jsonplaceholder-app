@@ -1,4 +1,4 @@
-# flutter placeholder app
+# Flutter JsonPlaceholder App
 
 Esta es una aplicación Flutter que muestra posts de la API JsonPlaceholder y permite la autenticación simulada. 
 
